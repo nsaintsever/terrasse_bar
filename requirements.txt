@@ -1,5 +1,5 @@
 streamlit==1.38.0
-folium==0.17.0
+folium
 streamlit-folium==0.22.0
 osmnx==1.9.4
 geopandas==1.0.1
