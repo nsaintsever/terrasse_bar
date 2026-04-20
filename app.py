@@ -5,19 +5,17 @@ from datetime import datetime, date, time
 import pytz
 from shadow_engine import get_bars_sunlight_status, CITIES
 
-st.set_page_config(page_title="Terrasses au soleil ☀️", layout="wide")
+st.set_page_config(page_title="Terrasses au sun maggle", layout="wide")
 
-st.title("☀️ Terrasses au soleil")
-st.caption("Trouve les terrasses de bars ensoleillées")
+st.title("☀️🍻 Terrasses au sun maggle 🍻☀️")
+st.caption("Trouve tes 🍻 terrasses 🍻")
 
-# --- Config ville (AVANT la sidebar pour être dispo partout) ---
 city = st.sidebar.selectbox("Ville", list(CITIES.keys()), index=0)
 city_info = CITIES[city]
 center_lat, center_lon = city_info["center"]
 default_radius = city_info["radius"]
 slug = city_info["slug"]
 
-# --- Sidebar : autres contrôles ---
 with st.sidebar:
     st.header("Paramètres")
 
@@ -37,7 +35,6 @@ with st.sidebar:
 
     run = st.button("🔍 Analyser", type="primary", use_container_width=True)
 
-# --- State ---
 if "last_result" not in st.session_state:
     st.session_state.last_result = None
 
@@ -52,7 +49,6 @@ if run:
             st.error(f"Erreur : {e}")
             st.stop()
 
-# --- Affichage ---
 if st.session_state.last_result:
     bars_df, sun_info, city_name, dt_used = st.session_state.last_result
 
@@ -65,7 +61,6 @@ if st.session_state.last_result:
     if sun_info["elevation"] <= 0:
         st.warning("🌙 Le soleil est sous l'horizon — tous les bars sont à l'ombre.")
 
-    # Carte
     m = folium.Map(location=[center_lat, center_lon], zoom_start=15, tiles="CartoDB positron")
     folium.Circle(
         location=[center_lat, center_lon],
